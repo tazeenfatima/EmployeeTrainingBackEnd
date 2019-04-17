@@ -14,35 +14,37 @@
   <div class="row col-md-12">
     <div style="margin:2%">
       <ul class="nav nav-pills nav-justified">
-        <li class="active"><a href="#basic">Basic Information</a></li>
-        <li><a href="#company" onclick="return false">Company Details</a></li>
-        <li><a href="#trainings">Trainings</a></li>
+        <li class="active"><a href="#" onclick="return false" (click)="openTab('basic',$event)" >Basic Information</a></li>
+        <li><a href="#" onclick="return false" (click)="openTab('company',$event)" >Company Details</a></li>
+        <li><a href="#" onclick="return false" (click)="openTab('trainings',$event)" >Trainings</a></li>
       </ul>
     </div>
-    <div class="tab-content col-md-8">
+    <div class="tab-content col-md-8" #allTabs>
       <div id="basic" class="tab-pane fade in active col-md-10">
         <form #userForm="ngForm" (submit)="update(loginForm)">
           <div class="form-group">
             <label for="email">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" ngModel aria-describedby="emailHelp"
+            <input type="text" class="form-control" id="name" name="name" ngModel
               [(ngModel)]="userObj.name" required>
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" class="form-control" id="email" name="email" ngModel aria-describedby="emailHelp"
+            <input type="text" class="form-control" id="email" name="email" ngModel
               [(ngModel)]="userObj.email" readonly>
           </div>
           <div class="form-group">
             <label for="email">Phone:</label>
-            <input type="text" class="form-control" id="phone" name="phone" ngModel aria-describedby="emailHelp"
+            <input type="text" class="form-control" id="phone" name="phone" ngModel
               [(ngModel)]="userObj.phone" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Upload Picture:</label>
+            <input type="file" id="profile" name="profile" ngModel
+              [(ngModel)]="userObj.profile">
           </div>
         </form>
       </div>
       <div id="company" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
       </div>
       <div id="trainings" class="tab-pane fade">
         <h3>Menu 2</h3>
