@@ -5,15 +5,25 @@
     border-radius: 50%;
 }
 .profile{
-    margin-top: 4%;
     float: right;
 }
-.nav{
-    margin: 2%
+.panel-default{
+    padding: 0;
+    margin: 2%;
 }
-.panel-group .panel-heading + .panel-collapse > .panel-body, .panel-group .panel-heading + .panel-collapse > .list-group {
-    border-top: 1px solid #ddd;
+.skill-form{
+  margin: 2% 0;
 }
-.panel-body {
-    padding: 15px;
+.btn-save{
+  margin-right: 10%;
+}
+.skill-div{
+  border: 3px solid #f0f0f0;
+  margin: 2px 8px;
+  padding: 5px 15px;
+}
+.action-div{
+  float: right;
+  width: 15%;
+  font-size: 21px;
 }
