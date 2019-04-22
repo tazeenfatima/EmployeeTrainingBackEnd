@@ -8,6 +8,7 @@ import { listExperience } from '../../../constants/index';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild('allTabs') tabs;
+  @ViewChild('tabList') tabList;
   @ViewChild('drpDownMenu') drpDown;
   userObj = {
     name: 'Tazeen',
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
   };
   arrExperience = [];
   allTrainings = [];
+  arrSkills = [];
   requestInProgress: boolean = false;
   showSkills: boolean = false;
   skillIndex = 0;
@@ -43,14 +45,6 @@ export class ProfileComponent implements OnInit {
     this.arrExperience = listExperience;
   }
   openTab(tabId, event) {
-    for (var i = 0; i < event.target.parentElement.parentElement.children.length; i++) {
-      var attrib = event.target.parentElement.parentElement.children[i];
-      if (attrib.classList.contains('active')) {
-        attrib.classList.remove('active');
-      }
-    }
-    event.target.parentElement.classList.add('active');
-
     let allTabs = this.tabs.nativeElement.children;
     for (var i = 0; i < allTabs.length; i++) {
       var attrib = allTabs[i];
@@ -61,6 +55,19 @@ export class ProfileComponent implements OnInit {
         let allClasses = attrib.classList;
         if (allClasses.contains('in')) {
           attrib.classList.remove('in', 'active');
+        }
+      }
+    }
+    let tabList = this.tabList.nativeElement.children;
+    for (var i = 0; i < tabList.length; i++) {
+      var attrib = tabList[i];
+      if (attrib.getAttribute('data-toggle') == tabId) {
+        attrib.classList.add('in', 'active');
+      }
+      else {
+        let allClasses = attrib.classList;
+        if (allClasses.contains('active')) {
+          attrib.classList.remove('active');
         }
       }
     }
@@ -94,46 +101,46 @@ export class ProfileComponent implements OnInit {
       }
     ]
   }
-  updateCompany(companyForm: ngForm){
+  updateCompany(companyForm: NgForm) {
     //login through api
 
     console.log('companyForm', companyForm);
     this.requestInProgress = true;
     this.requestInProgress = false;
   }
-  update(userForm: ngForm){
+  update(userForm: NgForm) {
     console.log('userForm', userForm);
     this.requestInProgress = true;
     this.requestInProgress = false;
   }
-  editSkill(skillObj, i){
+  editSkill(skillObj, i) {
     this.skillObj = {
-      name : skillObj.name,
-      experience : skillObj.experience
+      name: skillObj.name,
+      experience: skillObj.experience
     }
     this.showSkills = true;
     this.skillIndex = i;
   }
-  delSkill(i){
+  delSkill(i) {
     this.arrSkills.splice(i);
     this.skillObj = {
-      name : '',
-      experience : null
+      name: '',
+      experience: null
     }
   }
-  updateSkills(skillsForm: ngForm){
+  updateSkills(skillsForm: NgForm) {
     console.log('companyForm', skillsForm);
     this.requestInProgress = true;
     this.requestInProgress = false;
   }
-  showSkillsFun(){
+  showSkillsFun() {
     this.showSkills = !this.showSkills;
     this.skillObj = {
-      name : '',
-      experience : null
+      name: '',
+      experience: null
     }
   }
-  showTrainingsForm(){
+  showTrainingsForm() {
     this.showTrainings = !this.showTrainings;
     this.trainingObj = {
       title: '',
@@ -142,24 +149,24 @@ export class ProfileComponent implements OnInit {
       file: null
     }
   }
-  updateTrainings(TrainingsForm: ngForm){
-      console.log('TrainingsForm', TrainingsForm);
-      this.requestInProgress = true;
-      this.requestInProgress = false;
-    }
-  editTraining(trainingObj, i){
+  updateTrainings(TrainingsForm: NgForm) {
+    console.log('TrainingsForm', TrainingsForm);
+    this.requestInProgress = true;
+    this.requestInProgress = false;
+  }
+  editTraining(trainingObj, i) {
     this.trainingObj = trainingObj; //add id too
     this.showTrainings = true;
   }
-  removeTraining(training, i){
+  removeTraining(training, i) {
     this.allTrainings.splice(i);
     //send id to api
   }
-  downloadCertificate(training){
+  downloadCertificate(training) {
     //download?
   }
-  openActionDrpDown(){
-    if(this.drpDown.nativeElement.classList.contains('in')){
+  openActionDrpDown() {
+    if (this.drpDown.nativeElement.classList.contains('in')) {
       this.drpDown.nativeElement.classList.remove('in');
     }
     else this.drpDown.nativeElement.classList.add('in')

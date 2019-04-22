@@ -1,0 +1,16 @@
+/* .side-nav {
+    height: 100%; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0;
+    left: 0; 
+    overflow-x: hidden; 
+    padding-top: 20px;
+    padding: 6px;
+    height:100%;
+    background-color: #373a3c;
+} */
+.navbar{
+    height: 20px;
+    background-color: #373a3c;
+}

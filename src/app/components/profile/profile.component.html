@@ -1,4 +1,4 @@
-<div class="container margin-10" *ngIf="userObj">
+<div class="container margin-10 col-md-12" *ngIf="userObj">
   <h3>Profile</h3>
   <div class="row profile col-md-10">
     <div class="col-md-1 col-sm-2 col-xs-2">
@@ -13,17 +13,17 @@
   </div>
   <div class="panel panel-default col-md-12 col-sm-12 col-xs-12">
     <div class="panel-heading">
-      <ul class="nav nav-pills nav-justified" role="tablist">
-        <li class="active" role="tab" data-toggle="tab">
+      <ul class="nav nav-pills nav-justified" role="tablist" #tabList>
+        <li class="active" role="tab" data-toggle="basic">
           <a href="#" onclick="return false" (click)="openTab('basic',$event)">Basic Information</a>
         </li>
-        <li role="tab" data-toggle="tab">
+        <li role="tab" data-toggle="company">
           <a href="#" onclick="return false" (click)="openTab('company',$event)">Company Details</a>
         </li>
-        <li role="tab" data-toggle="tab">
+        <li role="tab" data-toggle="skills">
           <a href="#" onclick="return false" (click)="openTab('skills',$event)">Skills</a>
         </li>
-        <li role="tab" data-toggle="tab">
+        <li role="tab" data-toggle="trainings">
           <a href="#" onclick="return false" (click)="openTab('trainings',$event)">Trainings</a>
         </li>
       </ul>
@@ -52,8 +52,8 @@
           <div class="form-group col-md-offset-9 col-sm-offset-7">
             <button [disabled]="requestInProgress" type="submit" class="btn btn-default btn-login btn-lg
               btn-primary signup-btn col-md-offset-3 col-sm-offset-3 btn-save">Save</button>
-            <button class="btn btn-default btn-login btn-lg btn-default signup-btn"
-            [disabled]="requestInProgress" type="button" (click)="openTab('skills')">Next</button>
+            <button class="btn btn-default btn-login btn-lg btn-default signup-btn" [disabled]="requestInProgress"
+              type="button" (click)="openTab('company',$event)">Next</button>
           </div>
         </form>
       </div>
@@ -72,15 +72,15 @@
           <div class="form-group">
             <label for="experience">Experience:</label>
             <select [(ngModel)]="companyObj.experience" name="experience" class="form-control" required>
-              <option value="null" >Select Value</option>
+              <option value="null">Select Value</option>
               <option *ngFor="let exp of arrExperience" [value]="exp">{{exp}}</option>
             </select>
           </div>
           <div class="form-group col-md-offset-9 col-sm-offset-7">
             <button [disabled]="requestInProgress" type="submit" class="btn btn-default btn-login btn-lg
               btn-primary signup-btn col-md-offset-3 col-sm-offset-3 btn-save">Save</button>
-            <button class="btn btn-default btn-login btn-lg btn-default signup-btn"
-            [disabled]="requestInProgress" type="button" (click)="openTab('skills')">Next</button>
+            <button class="btn btn-default btn-login btn-lg btn-default signup-btn" [disabled]="requestInProgress"
+              type="button" (click)="openTab('skills',$event)">Next</button>
           </div>
         </form>
       </div>
@@ -89,7 +89,8 @@
           <div class="skill-div col-md-5 col-xs-12" *ngFor="let skill of arrSkills; let i= index">
             <span style="font-size:16px">{{skill.name}} -- {{skill.experience}}</span>
             <div class="action-div">
-              <a href="#" onclick="return false" (click)="editSkill(skill,i)" style="margin-right: 20%;"><i class="fa fa-edit"></i></a>
+              <a href="#" onclick="return false" (click)="editSkill(skill,i)" style="margin-right: 20%;"><i
+                  class="fa fa-edit"></i></a>
               <a href="#" onclick="return false" (click)="delSkill(i)"><i class="fa fa-trash"></i></a>
             </div>
           </div>
@@ -98,21 +99,20 @@
         <form #skillsForm="ngForm" (submit)="updateSkills(skillsForm)" *ngIf="showSkills" class="skill-form">
           <div class="form-group">
             <label for="name">Skill:</label>
-            <input type="text" class="form-control" id="name" name="name" ngModel [(ngModel)]="skillObj.name"
-              required>
+            <input type="text" class="form-control" id="name" name="name" ngModel [(ngModel)]="skillObj.name" required>
           </div>
           <div class="form-group">
             <label for="experience">Experience:</label>
             <select [(ngModel)]="skillObj.experience" name="experience" class="form-control" required>
-              <option value="null" >Select Value</option>
+              <option value="null">Select Value</option>
               <option *ngFor="let exp of arrExperience" [value]="exp">{{exp}}</option>
             </select>
           </div>
           <div class="form-group col-md-offset-9 col-sm-offset-7">
             <button [disabled]="requestInProgress" type="submit" class="btn btn-default btn-login btn-lg
               btn-primary signup-btn col-md-offset-3 col-sm-offset-3 btn-save">Save</button>
-            <button class="btn btn-default btn-login btn-lg btn-default signup-btn"
-            [disabled]="requestInProgress" type="button" (click)="openTab('skills')">Next</button>
+            <button class="btn btn-default btn-login btn-lg btn-default signup-btn" [disabled]="requestInProgress"
+              type="button" (click)="openTab('trainings',$event)">Next</button>
           </div>
         </form>
       </div>
@@ -158,7 +158,8 @@
           </tbody>
         </table>
         <a href="#" onclick="return false" (click)="showTrainingsForm()">Add New Training</a>
-        <form #TrainingsForm="ngForm" (submit)="updateTrainings(TrainingsForm)" *ngIf="showTrainings" class="skill-form">
+        <form #TrainingsForm="ngForm" (submit)="updateTrainings(TrainingsForm)" *ngIf="showTrainings"
+          class="skill-form">
           <div class="form-group">
             <label for="name">Title:</label>
             <input type="text" class="form-control" id="title" name="title" ngModel [(ngModel)]="trainingObj.title"
@@ -170,7 +171,8 @@
           </div>
           <div class="form-group">
             <label for="experience">Year of Completion:</label>
-            <input type="number" [(ngModel)]="trainingObj.completion_year" id="completion_year" name="completion_year" class="form-control" required>
+            <input type="number" [(ngModel)]="trainingObj.completion_year" id="completion_year" name="completion_year"
+              class="form-control" required>
           </div>
           <div class="form-group">
             <label for="email">Upload Certificate:</label>
@@ -179,8 +181,6 @@
           <div class="form-group col-md-offset-9 col-sm-offset-7">
             <button [disabled]="requestInProgress" type="submit" class="btn btn-default btn-login btn-lg
               btn-primary signup-btn col-md-offset-3 col-sm-offset-3 btn-save">Save</button>
-            <button class="btn btn-default btn-login btn-lg btn-default signup-btn"
-            [disabled]="requestInProgress" type="button" (click)="openTab('skills')">Next</button>
           </div>
         </form>
       </div>
