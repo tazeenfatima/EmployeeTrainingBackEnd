@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { listExperience } from '../../../constants/index';
+import { listExperience, arrAllSkills } from '../../constants/index';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     experience: null
   };
   skillObj = {
-    name: '',
+    name: null,
     experience: null
   };
   trainingObj = {
@@ -38,11 +38,13 @@ export class ProfileComponent implements OnInit {
   showSkills: boolean = false;
   skillIndex = 0;
   showTrainings: boolean = false;
+  arrAllSkills = [];
   constructor() { }
 
   ngOnInit() {
     this.getProfile();
     this.arrExperience = listExperience;
+    this.arrAllSkills = arrAllSkills;
   }
   openTab(tabId, event) {
     let allTabs = this.tabs.nativeElement.children;
@@ -92,12 +94,12 @@ export class ProfileComponent implements OnInit {
         experience: '1 Year'
       },
       {
-        name: 'Angular',
+        name: 'MS SQL Server',
         experience: '2 Years'
       },
       {
-        name: '.NET Development',
-        experience: '2 Years'
+        name: 'Software Project Management',
+        experience: 'Less than 1 year'
       }
     ]
   }
@@ -124,7 +126,7 @@ export class ProfileComponent implements OnInit {
   delSkill(i) {
     this.arrSkills.splice(i);
     this.skillObj = {
-      name: '',
+      name: null,
       experience: null
     }
   }
@@ -136,7 +138,7 @@ export class ProfileComponent implements OnInit {
   showSkillsFun() {
     this.showSkills = !this.showSkills;
     this.skillObj = {
-      name: '',
+      name: null,
       experience: null
     }
   }
