@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import moment from 'moment';
 import { listExperience, arrAllSkills } from '../../constants/index';
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild('allTabs') tabs;
   @ViewChild('tabList') tabList;
   @ViewChild('drpDownMenu') drpDown;
+  @ViewChild('expDrpDownMenu') expDrpDown;
   userObj = {
     name: 'Tazeen',
     email: 'tazeenlakhani@gmail.com',
@@ -19,7 +21,9 @@ export class ProfileComponent implements OnInit {
   companyObj = {
     name: '',
     title: '',
-    experience: null
+    experience: null,
+    from_date: new Date(),
+    to_date: new Date()
   };
   skillObj = {
     name: null,
@@ -39,6 +43,9 @@ export class ProfileComponent implements OnInit {
   skillIndex = 0;
   showTrainings: boolean = false;
   arrAllSkills = [];
+  showExperience: boolean = false;
+  allExperience = [];
+  isCurrent : boolean = true;
   constructor() { }
 
   ngOnInit() {
@@ -87,7 +94,7 @@ export class ProfileComponent implements OnInit {
         duration: '3 months',
         file: null
       }
-    ]
+    ];
     this.arrSkills = [
       {
         name: 'C#',
@@ -101,12 +108,36 @@ export class ProfileComponent implements OnInit {
         name: 'Software Project Management',
         experience: 'Less than 1 year'
       }
+    ];
+    this.allExperience = [
+      {
+        id:1, name: 'Abc', title: 'xyx', experience: '1 Year', from_date: '01/11/2018', to_date: null
+      },
+      {
+        id:2, name: 'Abcd', title: 'xyx', experience: '1 Year', from_date: '01/11/2017', to_date: '01/11/2018'
+      }
     ]
+    this.allExperience.map(d=>{
+      d.from_date = moment(new Date(d.from_date)).format('DD/MM/YYYY');
+      if(d.to_date){
+          d.to_date = moment(new Date(d.to_date)).format('DD/MM/YYYY');
+      }
+      else d['isCurrent'] = true;
+      return d;
+    })
   }
   updateCompany(companyForm: NgForm) {
     //login through api
-
-    console.log('companyForm', companyForm);
+    if(!companyForm.valid){
+      console.log('error');
+    }
+    let values = companyForm.value;
+    if(values.isCurrent){
+      values.to_date = null;
+    }
+    else values.to_date = moment(new Date(values.to_date)).format('DD/MM/YYYY');
+    values.from_date = moment(new Date(values.from_date)).format('DD/MM/YYYY');
+    console.log('companyForm', values);
     this.requestInProgress = true;
     this.requestInProgress = false;
   }
@@ -142,6 +173,16 @@ export class ProfileComponent implements OnInit {
       experience: null
     }
   }
+  showExpForm(){
+    this.showExperience = !this.showExperience;
+    this.companyObj = {
+      name: '',
+      title: '',
+      experience: null,
+      from_date: new Date(),
+      to_date: new Date()
+    };
+  }
   showTrainingsForm() {
     this.showTrainings = !this.showTrainings;
     this.trainingObj = {
@@ -167,10 +208,23 @@ export class ProfileComponent implements OnInit {
   downloadCertificate(training) {
     //download?
   }
+  editCompany(compObj , i){
+    this.companyObj = compObj;
+    this.showExperience = true;
+  }
+  delCompany(company, i){
+    this.allExperience.splice(i);
+  }
   openActionDrpDown() {
     if (this.drpDown.nativeElement.classList.contains('in')) {
       this.drpDown.nativeElement.classList.remove('in');
     }
     else this.drpDown.nativeElement.classList.add('in')
+  }
+  openExperienceActionDrpDown() {
+    if (this.expDrpDown.nativeElement.classList.contains('in')) {
+      this.expDrpDown.nativeElement.classList.remove('in');
+    }
+    else this.expDrpDown.nativeElement.classList.add('in')
   }
 }

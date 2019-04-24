@@ -9,7 +9,7 @@
 }
 .panel-default{
     padding: 0;
-    margin: 2%;
+    margin: 5px;
 }
 .skill-form{
   margin: 2% 0;
@@ -26,4 +26,8 @@
   float: right;
   width: 15%;
   font-size: 21px;
+}
+.nav-justified{
+  font-size: 13px;
+  line-height: 1;
 }
