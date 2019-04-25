@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import moment from 'moment';
+import * as moment from 'moment';
+
 import { listExperience, arrAllSkills } from '../../constants/index';
 @Component({
   selector: 'app-profile',
@@ -222,6 +223,7 @@ export class ProfileComponent implements OnInit {
     else this.drpDown.nativeElement.classList.add('in')
   }
   openExperienceActionDrpDown() {
+    console.log('this.exp', this.expDrpDown)
     if (this.expDrpDown.nativeElement.classList.contains('in')) {
       this.expDrpDown.nativeElement.classList.remove('in');
     }
