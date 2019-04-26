@@ -82,13 +82,13 @@
               <td>
                 <div class="dropdown">
                   <!--Drop down use with ids-->
-                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
                     (click)="openExperienceActionDrpDown(i)">
                     Action
                     <span class="caret"></span>
                   </button>
-                  <ul class="dropdown-menu fade" style="display:block" #expDrpDownMenu id="expDrp-{{i}}">
+                  <ul class="dropdown-menu fade" style="position:absolute; float:none;" #expDrpDownMenu [id]="i" aria-labelledby="dropdownMenu1">
                     <li class="anchor">
                       <a href="javascript:void(0);" (click)="editCompany(exp,i)">Edit</a>
                     </li>
@@ -206,11 +206,11 @@
               <td>
                 <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" (click)="openActionDrpDown()">
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" (click)="openActionDrpDown(i)">
                     Action
                     <span class="caret"></span>
                   </button>
-                  <ul class="dropdown-menu fade" style="display:block" #drpDownMenu>
+                  <ul class="dropdown-menu fade" #drpDownMenu [id]=i>
                     <li class="anchor" *ngIf="training.file">
                       <a href="javascript:void(0);" (click)="downloadCertificate(training,i)">Edit</a>
                     </li>

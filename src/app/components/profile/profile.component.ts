@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 
@@ -11,8 +11,8 @@ import { listExperience, arrAllSkills } from '../../constants/index';
 export class ProfileComponent implements OnInit {
   @ViewChild('allTabs') tabs;
   @ViewChild('tabList') tabList;
-  @ViewChild('drpDownMenu') drpDown;
-  @ViewChild('expDrpDownMenu') expDrpDown;
+  @ViewChildren('drpDownMenu') drpDown;
+  @ViewChildren('expDrpDownMenu') expDrpDown;
   userObj = {
     name: 'Tazeen',
     email: 'tazeenlakhani@gmail.com',
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
   arrAllSkills = [];
   showExperience: boolean = false;
   allExperience = [];
-  isCurrent : boolean = true;
+  isCurrent: boolean = true;
   constructor() { }
 
   ngOnInit() {
@@ -94,6 +94,13 @@ export class ProfileComponent implements OnInit {
         completion_year: '2018',
         duration: '3 months',
         file: null
+      },
+      {
+        id: 2,
+        title: 'Project Management',
+        completion_year: '2017',
+        duration: '4 months',
+        file: null
       }
     ];
     this.arrSkills = [
@@ -112,16 +119,16 @@ export class ProfileComponent implements OnInit {
     ];
     this.allExperience = [
       {
-        id:1, name: 'Abc', title: 'xyx', experience: '1 Year', from_date: '01/11/2018', to_date: null
+        id: 1, name: 'Abc', title: 'xyx', experience: '1 Year', from_date: '01/11/2018', to_date: null
       },
       {
-        id:2, name: 'Abcd', title: 'xyx', experience: '1 Year', from_date: '01/11/2017', to_date: '01/11/2018'
+        id: 2, name: 'Abcd', title: 'xyx', experience: '1 Year', from_date: '01/11/2017', to_date: '01/11/2018'
       }
     ]
-    this.allExperience.map(d=>{
+    this.allExperience.map(d => {
       d.from_date = moment(new Date(d.from_date)).format('DD/MM/YYYY');
-      if(d.to_date){
-          d.to_date = moment(new Date(d.to_date)).format('DD/MM/YYYY');
+      if (d.to_date) {
+        d.to_date = moment(new Date(d.to_date)).format('DD/MM/YYYY');
       }
       else d['isCurrent'] = true;
       return d;
@@ -129,11 +136,11 @@ export class ProfileComponent implements OnInit {
   }
   updateCompany(companyForm: NgForm) {
     //login through api
-    if(!companyForm.valid){
+    if (!companyForm.valid) {
       console.log('error');
     }
     let values = companyForm.value;
-    if(values.isCurrent){
+    if (values.isCurrent) {
       values.to_date = null;
     }
     else values.to_date = moment(new Date(values.to_date)).format('DD/MM/YYYY');
@@ -156,11 +163,12 @@ export class ProfileComponent implements OnInit {
     this.skillIndex = i;
   }
   delSkill(i) {
-    this.arrSkills.splice(i);
+    this.arrSkills.splice(i, 1);
     this.skillObj = {
       name: null,
       experience: null
     }
+    this.showSkills = false;
   }
   updateSkills(skillsForm: NgForm) {
     console.log('companyForm', skillsForm);
@@ -174,7 +182,7 @@ export class ProfileComponent implements OnInit {
       experience: null
     }
   }
-  showExpForm(){
+  showExpForm() {
     this.showExperience = !this.showExperience;
     this.companyObj = {
       name: '',
@@ -203,30 +211,62 @@ export class ProfileComponent implements OnInit {
     this.showTrainings = true;
   }
   removeTraining(training, i) {
-    this.allTrainings.splice(i);
+    this.allTrainings.splice(i, 1);
+    this.trainingObj = {
+      title: '',
+      completion_year: '',
+      duration: '',
+      file: null
+    };
+    this.showTrainings = false;
     //send id to api
   }
   downloadCertificate(training) {
     //download?
   }
-  editCompany(compObj , i){
+  editCompany(compObj, i) {
     this.companyObj = compObj;
     this.showExperience = true;
   }
-  delCompany(company, i){
-    this.allExperience.splice(i);
-  }
-  openActionDrpDown() {
-    if (this.drpDown.nativeElement.classList.contains('in')) {
-      this.drpDown.nativeElement.classList.remove('in');
+  delCompany(company, i) {
+    this.allExperience.splice(i, 1);
+    this.showExperience = false;
+    this.companyObj = {
+      name: '',
+      title: '',
+      experience: null,
+      from_date: new Date(),
+      to_date: new Date()
     }
-    else this.drpDown.nativeElement.classList.add('in')
   }
-  openExperienceActionDrpDown() {
-    console.log('this.exp', this.expDrpDown)
-    if (this.expDrpDown.nativeElement.classList.contains('in')) {
-      this.expDrpDown.nativeElement.classList.remove('in');
-    }
-    else this.expDrpDown.nativeElement.classList.add('in')
+  openActionDrpDown(index) {
+    this.drpDown._results.forEach(element => {
+      let id = element.nativeElement.id;
+      if (id == index) {
+        if (element.nativeElement.classList.contains('in')) {
+          element.nativeElement.classList.remove('in');
+          element.nativeElement.style.display = 'none';
+        }
+        else {
+          element.nativeElement.classList.add('in');
+          element.nativeElement.style.display = 'block';
+        }
+      }
+    });
+  }
+  openExperienceActionDrpDown(index) {
+    this.expDrpDown._results.forEach(element => {
+      let id = element.nativeElement.id;
+      if (id == index) {
+        if (element.nativeElement.classList.contains('in')) {
+          element.nativeElement.classList.remove('in');
+          element.nativeElement.style.display = 'none';
+        }
+        else {
+          element.nativeElement.classList.add('in');
+          element.nativeElement.style.display = 'block';
+        }
+      }
+    });
   }
 }
