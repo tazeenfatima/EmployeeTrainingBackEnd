@@ -1,25 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "meanauthapp",
-  "version": "1.0.0",
-  "description": "Mean Authentication App",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
-  },
-  "dependencies": {
-    "express": "*",
-    "mongoose": "*",
-    "bcryptjs": "*",
-    "cors": "*",
-    "body-parser": "*",
-    "passport": "*",
-    "passport-jwt": "*"
-  },
-  "author": "Muhammad taimour",
-  "license": "ISC"
-=======
   "name": "employees-training",
   "version": "0.0.0",
   "scripts": {
@@ -70,5 +49,4 @@
     "tslint": "~5.11.0",
     "typescript": "~3.1.6"
   }
->>>>>>> 8eaaddf9f626e7b3aaf9240e51bdbe9f8172d7b4
 }
